@@ -13,6 +13,7 @@ import { HomeModule } from './home/home.module';
     ProductsModule,
     BasketsModule,
     HomeModule
-  ]
+  ],
+  
 })
 export class ComponentsModule { }
