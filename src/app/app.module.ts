@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterLink } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent
@@ -16,7 +16,8 @@ import { RouterLink } from '@angular/router';
     BrowserAnimationsModule,
     AppRoutingModule,
     AdminModule,
-    UiModule, 
+    UiModule,
+    ToastrModule.forRoot(),
     
   ],
   providers: [],
