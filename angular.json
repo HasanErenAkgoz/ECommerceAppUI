@@ -31,6 +31,10 @@
               "node_modules/alertifyjs/build/css/alertify.rtl.min.css",
               "node_modules/alertifyjs/build/css/themes/semantic.min.css",
               "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
+              "node_modules/ngx-spinner/animations/ball-atom.css",
+              "node_modules/ngx-spinner/animations/ball-clip-rotate-pulse.css",
+              "node_modules/ngx-spinner/animations/square-jelly-box.css",
               "src/styles.css"
             ],
             "scripts": [

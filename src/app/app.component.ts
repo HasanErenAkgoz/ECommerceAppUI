@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
 declare var $: any
 @Component({
@@ -8,7 +9,8 @@ declare var $: any
 })
 export class AppComponent implements OnInit {
   title = 'ECommerceAppUI';
-  constructor(private toastrService: CustomToastrService) {}
+  constructor(private toastrService: CustomToastrService,
+    ) {}
   ngOnInit(): void {
     this.toastrService.message("Merhaba","Eren",{
       messageType : ToastrMessageType.Success,
