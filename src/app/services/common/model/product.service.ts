@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpClientService } from '../http-client.service';
 import { Create_Product } from 'src/app/contracts/Create_Product';
@@ -11,11 +11,20 @@ export class ProductService {
   constructor(private httpClientService : HttpClientService) { }
 
 
-  create(product : Create_Product){
+  create(product : Create_Product, successCallBack? : any, errorCallBack?: any){
     this.httpClientService.post({
       controller : "products"
     },product).subscribe((result)=>{
-      result ? alert("Başarili") : alert("Hata")
+      successCallBack();
+    }, (errorResponse : HttpErrorResponse)=>{
+        const _error : Array<{key : string , value : Array<string>}> = errorResponse.error;
+        let message = ""
+        _error.forEach((v, index)=>{
+            v.value.forEach((_v,_index)=>{
+              message += `${_v}<br>`;
+            });
+        });
+        errorCallBack(message);
     });
   }
 
