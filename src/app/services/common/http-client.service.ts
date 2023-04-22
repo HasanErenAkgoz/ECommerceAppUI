@@ -16,26 +16,26 @@ export class HttpClientService {
   get<T>(requestParameters : Partial<RequestParameters>, id? : string ) : Observable<T>{ 
 
     let url : string = "";
-    requestParameters.fullEndPoint ? url = requestParameters.fullEndPoint : url = `${this.url(requestParameters)}${id ? `/${id}` : "" }`
+    requestParameters.fullEndPoint ? url = requestParameters.fullEndPoint :url = `${this.url(requestParameters)}${id ? `/${id}` : ""}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`;
     return this.httpClient.get<T>(url,{headers : requestParameters.headers})
   }
 
   post<T>(requestParameters : Partial<RequestParameters>, body : Partial<T>) : Observable<T>{
 
     let url = "";
-    requestParameters.fullEndPoint ? url = requestParameters.fullEndPoint : url = `${this.url(requestParameters)}`
+    requestParameters.fullEndPoint ? url = requestParameters.fullEndPoint :  url = `${this.url(requestParameters)}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`
     return this.httpClient.post<T>(url,body, {headers : requestParameters.headers});
   }
 
   put<T>(requestParameters : Partial<RequestParameters>, body : Partial<T>) : Observable<T>{
     let url = "";
-    requestParameters.fullEndPoint ? url = requestParameters.fullEndPoint : url = `${this.url(requestParameters)}`
+    requestParameters.fullEndPoint ? url = requestParameters.fullEndPoint : url = `${this.url(requestParameters)}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`
     return this.httpClient.put<T>(url,body, {headers : requestParameters.headers});
   }
 
   detele<T>(requestParameters : Partial<RequestParameters>, id : string) : Observable<T>{
     let url = "";
-    requestParameters.fullEndPoint ? url = requestParameters.fullEndPoint : url = `${this.url(requestParameters)}/${id}`
+    requestParameters.fullEndPoint ? url = requestParameters.fullEndPoint : url = `${this.url(requestParameters)}/${id}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`;
     return this.httpClient.delete<T>(url,{headers : requestParameters.headers})
   }
 }
@@ -46,4 +46,5 @@ export class RequestParameters{
   baseUrl? : string;
   fullEndPoint? : string;
   headers? : HttpHeaders
+  queryString? : string
 }
