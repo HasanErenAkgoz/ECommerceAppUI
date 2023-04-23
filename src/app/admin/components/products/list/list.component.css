@@ -1,3 +1,11 @@
 table {
     width: 100%;
   }
+  #deleteicon{
+    color: red;
+    cursor: pointer;
+  }
+  #updateicon{
+    color:coral;
+    cursor: pointer;
+  }
