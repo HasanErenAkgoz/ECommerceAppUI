@@ -4,6 +4,8 @@ import { BaseComponent } from 'src/app/base/base.component';
 import { Create_Product } from 'src/app/contracts/Create_Product';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { ListComponent } from './list/list.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent, DeleteState } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-products',
@@ -11,7 +13,8 @@ import { ListComponent } from './list/list.component';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent extends BaseComponent implements OnInit {
-  constructor(spinner: NgxSpinnerService, private httpClientService : HttpClientService) {
+  constructor(spinner: NgxSpinnerService, private httpClientService : HttpClientService,
+    private dialog : MatDialog) {
     super(spinner);
   }
   ngOnInit(): void {
@@ -59,7 +62,7 @@ export class ProductsComponent extends BaseComponent implements OnInit {
       name : "EarPhone",
       stock : 300,
       price : 20
-    }).subscribe()  
+    }).subscribe()
   }
 
   delete(){
@@ -67,6 +70,8 @@ export class ProductsComponent extends BaseComponent implements OnInit {
       controller : "products"
     },"063b2d25-28e5-43e8-aa52-1caa6d161a11").subscribe();
   }
+
+
 
   @ViewChild(ListComponent) listComponents : ListComponent
 
