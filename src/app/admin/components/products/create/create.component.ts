@@ -16,7 +16,7 @@ export class CreateComponent implements OnInit {
   constructor(private productService: ProductService, private formBuilder: FormBuilder,
     private alertifyService: AlertifyService) {
   }
-  
+
   ngOnInit(): void {
     this.loadProductFormGroup();
   }
@@ -40,7 +40,7 @@ export class CreateComponent implements OnInit {
       }, errorMessage => {
           this.alertifyService.message(errorMessage,{
             messageType : MessageType.Error,
-            position : Position.TopLeft
+            position : Position.TopRight
           })
       })
   }

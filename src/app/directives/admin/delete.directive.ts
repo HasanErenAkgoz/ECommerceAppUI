@@ -1,6 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent, DeleteState } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
+import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
+import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { ProductService } from 'src/app/services/common/model/product.service';
 declare var $ : any
 @Directive({
@@ -9,9 +12,10 @@ declare var $ : any
 export class DeleteDirective {
 
   @Input() id : string;
+  @Input() controller : string;
   @Output() callback : EventEmitter<any> = new EventEmitter()
-  constructor(private element: ElementRef, private _renderer: Renderer2, private productService: ProductService,
-    private dialog : MatDialog) {
+  constructor(private element: ElementRef, private _renderer: Renderer2, private httpClientService: HttpClientService,
+    private dialog : MatDialog , private alertifyService : AlertifyService) {
     const icon = this._renderer.createElement("i");
     const matIcon = this._renderer.createElement("mat-icon");
     const text = this._renderer.createText("delete_forever");
@@ -36,11 +40,18 @@ export class DeleteDirective {
   async onClick() {
     this.openDeleteDialog(async () => {
       const td: HTMLTableCellElement = this.element.nativeElement
-      await this.productService.delete(this.id)
-      $(td.parentElement).fadeOut(800, () => {
-        this.callback.emit();
-      })
-    });
+      this.httpClientService.detele({
+        controller: this.controller,
+      }, this.id).subscribe(data => {
+        $(td.parentElement).fadeOut(800, () => {
+          this.callback.emit();
+          this.alertifyService.message("Ürün Başarıyla Silinmiştir.",{
+            messageType : MessageType.Success,
+            position : Position.TopRight
+          })
+        });
+      });
+    })
   }
 
   openDeleteDialog(afterClosed : any): void {
