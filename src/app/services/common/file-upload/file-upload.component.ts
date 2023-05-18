@@ -4,6 +4,9 @@ import { HttpClientService } from '../http-client.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { AlertifyService, MessageType, Position } from '../../admin/alertify.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FileUploadDialogComponent, UploadState } from 'src/app/dialogs/file-upload-dialog/file-upload-dialog.component';
+import { DialogService } from '../dialog/dialog.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -13,7 +16,8 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui
 export class FileUploadComponent {
   constructor(private httpClientService: HttpClientService,
     private alertifyService : AlertifyService,
-    private customToastrService : CustomToastrService) {
+    private customToastrService : CustomToastrService,
+    private dialogService : DialogService) {
   }
 
   public files: NgxFileDropEntry[];
@@ -28,47 +32,47 @@ export class FileUploadComponent {
         fileData.append(_file.name, _file, file.relativePath);
       })
     }
-    this.httpClientService.post({
-      controller: this.options.controller,
-      action: this.options.action,
-      queryString: this.options.queryString,
-      headers: new HttpHeaders({"responseType": "blob"})
-    }, fileData).subscribe({
-      next: (data) => {
-        const successMessage = "File Upload Successful"
-        if (this.options.isAdminPage) {
-            this.alertifyService.message(successMessage,{
-              messageType : MessageType.Success,
-              position : Position.TopRight
+    this.dialogService.openDialog({
+      componentType: FileUploadDialogComponent,
+      data: UploadState.Yes,
+      afterClosed: () => this.httpClientService.post({
+        controller: this.options.controller,
+        action: this.options.action,
+        queryString: this.options.queryString,
+        headers: new HttpHeaders({ "responseType": "blob" })
+      }, fileData).subscribe({
+        next: (data) => {
+          const successMessage = "File Upload Successful"
+          if (this.options.isAdminPage) {
+            this.alertifyService.message(successMessage, {
+              messageType: MessageType.Success,
+              position: Position.TopRight
             })
-        }
-        else
-        {
-            this.customToastrService.message(successMessage,"Successful",{
-              messageType : ToastrMessageType.Success,
-              position : ToastrPosition.TopRight
+          }
+          else {
+            this.customToastrService.message(successMessage, "Successful", {
+              messageType: ToastrMessageType.Success,
+              position: ToastrPosition.TopRight
             })
-        }
-      },
-      error: (errorResponse: HttpErrorResponse) => {
-        const errorMessage : string = "An unexpected error was encountered while uploading files"
-        if (this.options.isAdminPage) {
-            this.alertifyService.message(errorMessage,{
-              messageType : MessageType.Error,
-              position : Position.TopRight,
+          }
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          const errorMessage: string = "An unexpected error was encountered while uploading files"
+          if (this.options.isAdminPage) {
+            this.alertifyService.message(errorMessage, {
+              messageType: MessageType.Error,
+              position: Position.TopRight,
             })
+          }
+          else {
+            this.customToastrService.message(errorMessage, "Filed", {
+              messageType: ToastrMessageType.Error,
+              position: ToastrPosition.TopRight
+            })
+          }
         }
-        else
-        {
-          this.customToastrService.message(errorMessage,"Filed",{
-            messageType : ToastrMessageType.Error,
-            position : ToastrPosition.TopRight
-          })
-        }
-      }
-    });
-
-
+      })
+    })
   }
 }
 

@@ -1,24 +1,24 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { BaseDialog } from '../base/base-dialog';
 
 @Component({
   selector: 'app-delete-dialog',
   templateUrl: './delete-dialog.component.html',
   styleUrls: ['./delete-dialog.component.css']
 })
-export class DeleteDialogComponent {
+export class DeleteDialogComponent extends BaseDialog<DeleteDialogComponent> {
 
   constructor(
-    public dialogRef: MatDialogRef<DeleteDialogComponent>,
+    dialogRef: MatDialogRef<DeleteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DeleteState,
-  ) {}
+  ) {super(dialogRef)}
 
-  onNoClick() {
-    this.dialogRef.close();
-  }
 }
 
 export enum DeleteState {
   Yes,
   No
 }
+
+
