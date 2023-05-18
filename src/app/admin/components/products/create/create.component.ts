@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Create_Product } from 'src/app/contracts/Create_Product';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
+import { FileUploadOptions } from 'src/app/services/common/file-upload/file-upload.component';
 import { ProductService } from 'src/app/services/common/model/product.service';
 
 @Component({
@@ -13,6 +14,13 @@ export class CreateComponent implements OnInit {
   productForm: FormGroup
 
   @Output() createProduct : EventEmitter<Create_Product> = new EventEmitter();
+  @Output() fileUploadOptions : Partial<FileUploadOptions> = {
+    action : "upload",
+    controller : "products",
+    explanation : "Drag or Select Images...",
+    isAdminPage : true,
+    accept : ".png, .jpg, .jpeg"
+  }
   constructor(private productService: ProductService, private formBuilder: FormBuilder,
     private alertifyService: AlertifyService) {
   }
