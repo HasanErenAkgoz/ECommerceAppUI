@@ -5,7 +5,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { Create_Product } from 'src/app/contracts/Create_Product';
 import { List_Product } from 'src/app/contracts/List_Product';
+import { SelectProductImageDialogComponent } from 'src/app/dialogs/select-product-image-dialog/select-product-image-dialog.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
+import { DialogService } from 'src/app/services/common/dialog/dialog.service';
 import { ProductService } from 'src/app/services/common/model/product.service';
 declare var $ : any
 @Component({
@@ -14,11 +16,12 @@ declare var $ : any
   styleUrls: ['./list.component.css']
 })
 export class ListComponent extends BaseComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'stock', 'price', 'createDate', 'updateDate','update','delete'];
+  displayedColumns: string[] = ['name', 'stock', 'price', 'createDate', 'updateDate','photo','update','delete'];
   dataSource: MatTableDataSource<List_Product> = null
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(spinner: NgxSpinnerService, private productService: ProductService,
-    private alertifyService: AlertifyService) {
+    private alertifyService: AlertifyService,
+    private dialogService : DialogService) {
     super(spinner);
   }
 
@@ -40,9 +43,14 @@ export class ListComponent extends BaseComponent implements OnInit {
     await this.getProducts();
   }
 
-  // delete(id : number , event){
-  //   const img : HTMLImageElement = event.srcElement;
-  //   $(img.parentElement.parentElement.parentElement).fadeOut(800)
-  // }
+  addProductImages(id : string){
+      this.dialogService.openDialog({
+        data : id,
+        componentType : SelectProductImageDialogComponent,
+        options : {
+          width : "1400px",
+        }
+      })
+  }
 
 }

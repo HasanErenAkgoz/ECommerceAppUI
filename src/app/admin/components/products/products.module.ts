@@ -23,7 +23,6 @@ import { FileUploadModule } from 'src/app/services/common/file-upload/file-uploa
     CreateComponent,
     ListComponent,
     DeleteDirective,
-
   ],
   imports: [
     CommonModule,
