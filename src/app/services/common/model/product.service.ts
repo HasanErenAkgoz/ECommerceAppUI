@@ -44,6 +44,7 @@ export class ProductService {
   }
 
  async delete(id : string){
+
    const deleteObservable : Observable<number> = this.httpClientService.detele<number>({
       controller : "products"
     },id)
