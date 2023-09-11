@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { CreateUser } from 'src/app/contracts/users/create-user';
 import { User } from 'src/app/entities/user';
+import { UserService } from 'src/app/services/common/model/user.service';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/ui/custom-toastr.service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +12,7 @@ import { User } from 'src/app/entities/user';
 })
 export class RegisterComponent implements OnInit  {
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private userService : UserService,private customToastrService : CustomToastrService) { }
 
   frm: FormGroup;
 
@@ -20,7 +23,7 @@ export class RegisterComponent implements OnInit  {
         Validators.maxLength(50),
         Validators.minLength(3)
       ]],
-      userName: ["", [
+      username: ["", [
         Validators.required,
         Validators.maxLength(50),
         Validators.minLength(3)
@@ -34,15 +37,15 @@ export class RegisterComponent implements OnInit  {
         [
           Validators.required
         ]],
-        passwordAgain: ["",
+        passwordConfirm: ["",
         [
           Validators.required
         ]]
     }, {
       validators: (group: AbstractControl): ValidationErrors | null => {
         let password = group.get("password").value;
-        let passwordAgain = group.get("passwordAgain").value;
-        return password === passwordAgain ? null : { notSame: true };
+        let passwordConfirm = group.get("passwordConfirm").value;
+        return password === passwordConfirm ? null : { notSame: true };
       }
     })
   }
@@ -52,13 +55,23 @@ export class RegisterComponent implements OnInit  {
   }
 
   submitted: boolean = false;
-  onSubmit(data: User) {
+  async onSubmit(user: User) {
     this.submitted = true;
 
-    debugger;
     if (this.frm.invalid)
       return;
 
+    const result: CreateUser = await this.userService.create(user);
+    if (result.succeeded)
+      this.customToastrService.message(result.message, "User Registration Successful", {
+        messageType: ToastrMessageType.Success,
+        position: ToastrPosition.TopRight
+      })
+    else
+      this.customToastrService.message(result.message, "Error", {
+        messageType: ToastrMessageType.Error,
+        position: ToastrPosition.TopRight
+      })
   }
 
 }
