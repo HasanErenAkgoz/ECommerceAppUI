@@ -8,7 +8,7 @@ import { List_Product } from 'src/app/contracts/List_Product';
 import { SelectProductImageDialogComponent } from 'src/app/dialogs/select-product-image-dialog/select-product-image-dialog.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { DialogService } from 'src/app/services/common/dialog/dialog.service';
-import { ProductService } from 'src/app/services/common/model/product.service';
+import { ProductService } from 'src/app/services/common/models/product.service';
 declare var $ : any
 @Component({
   selector: 'app-list',

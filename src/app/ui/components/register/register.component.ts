@@ -4,7 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent } from 'src/app/base/base.component';
 import { CreateUser } from 'src/app/contracts/users/create-user';
 import { User } from 'src/app/entities/user';
-import { UserService } from 'src/app/services/common/model/user.service';
+import { UserService } from 'src/app/services/common/models/user.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/ui/custom-toastr.service';
 
 @Component({

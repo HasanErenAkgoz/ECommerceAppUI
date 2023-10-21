@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
-import { UserService } from 'src/app/services/common/model/user.service';
+import { UserService } from 'src/app/services/common/models/user.service';
 
 @Component({
   selector: 'app-login',

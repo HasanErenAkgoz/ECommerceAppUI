@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, Output } from '@angular/core';
 import { BaseDialog } from '../base/base-dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FileUploadOptions } from 'src/app/services/common/file-upload/file-upload.component';
-import { ProductService } from 'src/app/services/common/model/product.service';
+import { ProductService } from 'src/app/services/common/models/product.service';
 import { List_Product_Image } from 'src/app/contracts/List_Product_Image';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerType } from 'src/app/base/base.component';
