@@ -18,9 +18,6 @@ export class ProductsComponent extends BaseComponent implements OnInit {
     super(spinner);
   }
   ngOnInit(): void {
-    // this.post()
-    // this.put()
-    // this.delete();
     this.httpClientService.get({
       controller : "products"
     }).subscribe((data)=>{

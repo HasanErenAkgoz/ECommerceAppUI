@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
+import { AuthService } from './services/common/auth.service';
+import { Route, Router } from '@angular/router';
 declare var $: any
 @Component({
   selector: 'app-root',
@@ -9,13 +10,19 @@ declare var $: any
 })
 export class AppComponent implements OnInit {
   title = 'ECommerceAppUI';
-  constructor(private toastrService: CustomToastrService,
-    ) {}
+  constructor(public authService : AuthService,private customToastrService : CustomToastrService,private router:Router) {authService.identityCheck()}
+
   ngOnInit(): void {
-    this.toastrService.message("Merhaba","Eren",{
-      messageType : ToastrMessageType.Success,
-      position : ToastrPosition.TopRight,
-    })
+  }
+
+  signOut(){
+      localStorage.removeItem("accessToken");
+      this.authService.identityCheck();
+      this.router.navigate(["login"])
+      this.customToastrService.message("Logged Out","Exit",{
+        messageType : ToastrMessageType.Warning,
+        position : ToastrPosition.TopRight
+      })
   }
 }
 
