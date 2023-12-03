@@ -12,7 +12,11 @@
       <input #txtPassword type="password" class="form-control" id="password" placeholder="Password">
     </div>
 
-    <button style="margin-top:0.5rem;" type="submit" class="btn btn-primary" (click)="login(txtUsernameOrEmail.value, txtPassword.value)">Login</button>
+    <button style="margin-top:0.5rem;" type="submit" class="btn btn-primary"
+      (click)="login(txtUsernameOrEmail.value, txtPassword.value)">Login</button>
+
+    <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button>
+
 
   </div>
   <div class="col-md-3"></div>
