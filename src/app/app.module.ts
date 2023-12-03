@@ -12,7 +12,7 @@ import { FileUploadDialogComponent } from './dialogs/file-upload-dialog/file-upl
 import { SelectProductImageDialogComponent } from './dialogs/select-product-image-dialog/select-product-image-dialog.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LoginComponent } from './ui/components/login/login.component';
-import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +27,7 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, So
     ToastrModule.forRoot(),
     NgxSpinnerModule,
     HttpClientModule,
+    GoogleSigninButtonModule,
     JwtModule.forRoot({
       config : {
         tokenGetter : () => localStorage.getItem("accessToken"),

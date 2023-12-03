@@ -11,13 +11,16 @@
       <label for="password">Password</label>
       <input #txtPassword type="password" class="form-control" id="password" placeholder="Password">
     </div>
+    <div class="row mt-3">
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary"
+          (click)="login(txtUsernameOrEmail.value, txtPassword.value)">Login</button>
+      </div>
 
-    <button style="margin-top:0.5rem;" type="submit" class="btn btn-primary"
-      (click)="login(txtUsernameOrEmail.value, txtPassword.value)">Login</button>
-
-    <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button>
-
-
+      <div class="col-md-2">
+        <asl-google-signin-button type='standard' theme="filled_blue" size='large'></asl-google-signin-button>
+      </div>
+    </div>
   </div>
   <div class="col-md-3"></div>
 </div>
