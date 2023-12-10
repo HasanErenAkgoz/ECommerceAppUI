@@ -2,11 +2,8 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
 import { SpinnerType } from 'src/app/base/base.component';
-import { AlertifyService } from 'src/app/services/admin/alertify.service';
-import { _isAuthenticate } from 'src/app/services/common/auth.service';
+import { _isAuthenticated } from 'src/app/services/common/auth.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/ui/custom-toastr.service';
 
 @Injectable({
@@ -27,7 +24,7 @@ export class AuthGuard  {
     catch{
         isExpired = false;
     }
-    if(!_isAuthenticate){
+    if(!_isAuthenticated){
         this.router.navigate(["login"], {queryParams : { returnUrl : state.url}})
         this.toastrService.message("Please login as a user", "Unauthorized Access",{
           messageType : ToastrMessageType.Warning,
