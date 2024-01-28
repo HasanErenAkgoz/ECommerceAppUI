@@ -34,6 +34,8 @@ export class UserAuthService {
         messageType: ToastrMessageType.Info,
         position: ToastrPosition.TopRight
       })
+      this.router.navigateByUrl("home")
+
       callBackFunction();
     }
   }

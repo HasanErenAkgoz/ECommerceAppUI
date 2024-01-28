@@ -27,10 +27,6 @@ export class LoginComponent extends BaseComponent implements OnInit {
           if(returnUrl){
              this.router.navigate([returnUrl])
           }
-          else
-          {
-            this.router.navigateByUrl("/")
-          }
        })
       })
     })

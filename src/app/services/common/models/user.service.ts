@@ -7,19 +7,20 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui
 import { Token } from 'src/app/contracts/token/token';
 import { TokenResponse } from 'src/app/contracts/token/tokenResponse';
 import { SocialUser } from '@abacritt/angularx-social-login';
+import { Route, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private httpClientService: HttpClientService, private customToastrService: CustomToastrService) { }
+  constructor(private httpClientService: HttpClientService, private customToastrService: CustomToastrService,private router : Router) { }
 
   async create(user: User): Promise<CreateUser> {
     const observable: Observable<CreateUser | User> = this.httpClientService.post<CreateUser | User>({
       controller: "User"
     }, user);
-
+    this.router.navigateByUrl("login")
     return await firstValueFrom(observable) as CreateUser
   }
 
