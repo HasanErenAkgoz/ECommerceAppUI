@@ -14,20 +14,22 @@ import { UserService } from 'src/app/services/common/models/user.service';
 })
 export class LoginComponent extends BaseComponent implements OnInit {
 
-  constructor(private userAuthService: UserAuthService, spinner: NgxSpinnerService,private authService : AuthService, private activatedRoute : ActivatedRoute,private router :Router,
-    private socialAuthService : SocialAuthService) {
+  constructor(private userAuthService: UserAuthService, spinner: NgxSpinnerService, private authService: AuthService, private activatedRoute: ActivatedRoute, private router: Router,
+    private socialAuthService: SocialAuthService) {
     super(spinner)
     this.socialAuthService.authState.subscribe(async (user: SocialUser) => {
       this.showSpinner(SpinnerType.BallAtom);
-      await this.userAuthService.googleLogin(user, () =>{
+      await this.userAuthService.googleLogin(user, () => {
         this.authService.identityCheck();
         this.hideSpinner(SpinnerType.BallAtom)
         this.activatedRoute.queryParams.subscribe(params => {
-          const returnUrl : string =  params["returnUrl"]
-          if(returnUrl){
-             this.router.navigate([returnUrl])
+          const returnUrl: string = params["returnUrl"]
+          if (returnUrl) {
+            this.router.navigate([returnUrl])
           }
-       })
+          else
+            this.router.navigateByUrl("/")
+        })
       })
     })
   }

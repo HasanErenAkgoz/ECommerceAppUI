@@ -17,8 +17,9 @@ export class AppComponent implements OnInit {
 
   signOut(){
       localStorage.removeItem("accessToken");
-      this.authService.identityCheck();
+      localStorage.removeItem("refreshToken");
       this.router.navigate(["login"])
+      this.authService.identityCheck();
       this.customToastrService.message("Logged Out","Exit",{
         messageType : ToastrMessageType.Warning,
         position : ToastrPosition.TopRight

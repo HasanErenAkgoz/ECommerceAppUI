@@ -1,3 +1,4 @@
+import { UserAuthService } from 'src/app/services/common/models/user-auth.service';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
@@ -8,17 +9,18 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../ui/cu
 })
 export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
 
-  constructor(private toasterService : CustomToastrService) { }
+  constructor(private toasterService : CustomToastrService,private userAuthService : UserAuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError(error => {
       switch (error.status) {
         case HttpStatusCode.Unauthorized:
-        this.toasterService.message("You are not authorized to perform this operation.","Unauthorized Actions",
-        {
-          messageType : ToastrMessageType.Warning,
-          position : ToastrPosition.BottomFullWidth
-        })
+          this.toasterService.message("You are not authorized to perform this operation.", "Unauthorized Actions",
+            {
+              messageType: ToastrMessageType.Warning,
+              position: ToastrPosition.BottomFullWidth
+            })
+          this.userAuthService.refreshTokenLogin(localStorage.getItem("refreshToken")).then(data => {});
           break;
         case HttpStatusCode.InternalServerError:
           this.toasterService.message("Unable to Access Server. Please Contact Your Administrator.","InternalServerError",
@@ -27,7 +29,6 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
             position : ToastrPosition.BottomFullWidth
           })
           break;
-
           case HttpStatusCode.BadRequest:
             this.toasterService.message("Invalid Request Made. Please Check Your Data..","BadRequest",
           {
