@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent } from 'src/app/base/base.component';
-import { Create_Product } from 'src/app/contracts/Create_Product';
+import { Create_Product } from 'src/app/contracts/Product/Create_Product';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { ListComponent } from './list/list.component';
 import { MatDialog } from '@angular/material/dialog';

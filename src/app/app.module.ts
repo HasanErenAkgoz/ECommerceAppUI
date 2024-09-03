@@ -14,10 +14,13 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { LoginComponent } from './ui/components/login/login.component';
 import { FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { HttpErrorHandlerInterceptorService } from './services/common/http-error-handler-interceptor.service';
+import { ComponentsModule } from './admin/components/components.module';
+import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    DynamicLoadComponentDirective
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { HttpErrorHandlerInterceptorService } from './services/common/http-error
     }),
     SocialLoginModule,
   ],
+
   providers: [
      {provide: 'baseUrl','useValue':"https://localhost:7163/api",multi : true},
      {

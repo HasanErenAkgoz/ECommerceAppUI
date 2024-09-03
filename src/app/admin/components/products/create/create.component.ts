@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Create_Product } from 'src/app/contracts/Create_Product';
+import { Create_Product } from 'src/app/contracts/Product/Create_Product';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { FileUploadOptions } from 'src/app/services/common/file-upload/file-upload.component';
 import { ProductService } from 'src/app/services/common/models/product.service';

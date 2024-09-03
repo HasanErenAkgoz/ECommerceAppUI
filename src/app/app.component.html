@@ -16,9 +16,7 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" routerLink="products">Products</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" routerLink="basket">Shopping Cart</a>
-            </li>
+           
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" routerLink="/register"
                 *ngIf="!authService.isAuthenticated">Register</a>
@@ -36,6 +34,9 @@
                 *ngIf="authService.isAuthenticated">Exit</a>
             </li>
           </ul>
+          <div class="d-flex">
+            <button data-bs-toggle="modal" data-bs-target="#shoppingCart" (click)="loadComponent()" class="btn btn-outline-success" type="submit">Shopping Cart</button>
+          </div>
         </div>
       </div>
     </nav>
@@ -51,3 +52,9 @@
 </div>
 
 <ngx-spinner size="medium" type="square-jelly-box"></ngx-spinner>
+
+<div class="modal fade" id="shoppingCart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <ng-template appDynamicLoadComponent></ng-template>
+  </div>
+</div>

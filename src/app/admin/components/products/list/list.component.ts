@@ -3,8 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
-import { Create_Product } from 'src/app/contracts/Create_Product';
-import { List_Product } from 'src/app/contracts/List_Product';
+import { Create_Product } from 'src/app/contracts/Product/Create_Product';
+import { List_Product } from 'src/app/contracts/Product/List_Product';
 import { SelectProductImageDialogComponent } from 'src/app/dialogs/select-product-image-dialog/select-product-image-dialog.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { DialogService } from 'src/app/services/common/dialog/dialog.service';
@@ -31,12 +31,12 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   async getProducts() {
     this.showSpinner(SpinnerType.BallAtom);
-    const allProducts: { totalCount: number; products: List_Product[] } = await this.productService.read(this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 5, () => this.hideSpinner(SpinnerType.BallAtom), errorMessage => this.alertifyService.message(errorMessage, {
+    const allProducts: { totalProductCount: number; products: List_Product[] } = await this.productService.read(this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 5, () => this.hideSpinner(SpinnerType.BallAtom), errorMessage => this.alertifyService.message(errorMessage, {
       messageType: MessageType.Error,
       position: Position.TopRight
     }))
     this.dataSource = new MatTableDataSource<List_Product>(allProducts.products);
-    this.paginator.length = allProducts.totalCount;
+    this.paginator.length = allProducts.totalProductCount;
   }
 
   async pageChanged() {

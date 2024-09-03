@@ -13,6 +13,5 @@ export class ProductsComponent extends BaseComponent implements OnInit {
     super(spinner);
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 }
