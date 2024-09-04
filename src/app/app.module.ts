@@ -20,7 +20,7 @@ import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-
   declarations: [
     AppComponent,
     LoginComponent,
-    DynamicLoadComponentDirective
+    DynamicLoadComponentDirective,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +43,8 @@ import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-
 
   providers: [
      {provide: 'baseUrl','useValue':"https://localhost:7163/api",multi : true},
+     {provide: 'baseSignalRUrl','useValue':"https://localhost:7163/",multi : true},
+
      {
       provide: 'SocialAuthServiceConfig',
       useValue: {
